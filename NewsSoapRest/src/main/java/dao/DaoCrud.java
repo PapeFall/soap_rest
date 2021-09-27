@@ -13,8 +13,8 @@ import java.util.List;
  */
 public interface DaoCrud<T> {
     public T create(T t);
-    public void update(T t);
-    public void delete(Long id);
+    public T update(T t);
+    public boolean delete(Long id);
     public List<T> getAll();
     public T getById(Long id);
 }

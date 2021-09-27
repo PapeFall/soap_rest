@@ -24,11 +24,12 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void update(User t) {
+    public User update(User t) {
+        return null;
     }
 
     @Override
-    public void delete(Long id) {
+    public boolean delete(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

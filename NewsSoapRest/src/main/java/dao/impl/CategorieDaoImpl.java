@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
@@ -20,28 +21,92 @@ import javax.enterprise.context.ApplicationScoped;
  *
  */
 @ApplicationScoped
-public class CategorieDaoImpl implements CategorieDAO{
+public class CategorieDaoImpl implements CategorieDAO {
 
     private static final String SQL_SELECT_ALL = "select * from categorie";
-    
+    private static final String SQL_SELECT_BY_ID = "select * from categorie where id = ?";
+    private static final String SQL_DELETE_BY_ID = "DELETE from categorie where id = ?";
+    private static final String SQL_INSERT = "insert into categorie(libelle) values(?)";
+    private static final String SQL_UPDATE = "update set categorie libelle=?";
+
     @Override
     public Categorie create(Categorie t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection connection = ConnexionManager.getConnection();
+        PreparedStatement preparedStatement = null;
+        int b = -11;
+        try {
+            preparedStatement = connection.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, t.getLibelle());
+            b = preparedStatement.executeUpdate();
+            if (b > 0) {
+                ResultSet r = preparedStatement.getGeneratedKeys();
+                if (r.next()) {
+                    t.setId(r.getLong(1));
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        ConnexionManager.closeConnection(connection);
+        return b > 0 ? t : null;
     }
 
     @Override
-    public void update(Categorie t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Categorie update(Categorie t) {
+        Connection connection = ConnexionManager.getConnection();
+        PreparedStatement preparedStatement = null;
+        int b = -11;
+        try {
+            preparedStatement = connection.prepareStatement(SQL_UPDATE);
+            preparedStatement.setString(1, t.getLibelle());
+            b = preparedStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        ConnexionManager.closeConnection(connection);
+        return b > 0 ? t : null;
     }
 
     @Override
-    public void delete(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean delete(Long id) {
+        Connection connection = ConnexionManager.getConnection();
+        PreparedStatement preparedStatement = null;
+        int b = -11;
+        try {
+            preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID);
+            preparedStatement.setLong(1, id);
+            b = preparedStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        ConnexionManager.closeConnection(connection);
+        return b >= 0 ? true : false;
     }
 
     @Override
     public List<Categorie> getAll() {
-         Connection connection = ConnexionManager.getConnection();
+        Connection connection = ConnexionManager.getConnection();
         PreparedStatement preparedStatement = null;
         List<Categorie> liste = new ArrayList<>();
 
@@ -71,7 +136,32 @@ public class CategorieDaoImpl implements CategorieDAO{
 
     @Override
     public Categorie getById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection connection = ConnexionManager.getConnection();
+        PreparedStatement preparedStatement = null;
+        Categorie cat = new Categorie();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID);
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                cat.setId(resultSet.getLong("id"));
+                cat.setLibelle(resultSet.getString("libelle"));
+
+            }
+            resultSet.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        ConnexionManager.closeConnection(connection);
+        return cat;
     }
-    
+
 }

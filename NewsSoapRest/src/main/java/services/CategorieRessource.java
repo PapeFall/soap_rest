@@ -9,6 +9,7 @@ import dao.impl.CategorieDaoImpl;
 import domaine.Categorie;
 import java.util.List;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -26,21 +27,26 @@ public class CategorieRessource  {
     
     @POST
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-    public Categorie create(Categorie t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Categorie create(@FormParam("libelle") String libelle) {
+        Categorie t = new Categorie();
+        t.setLibelle(libelle);
+        return new CategorieDaoImpl().create(t);
     }
     
     @PUT
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-    public void update(Categorie t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Categorie update(@FormParam("id") Long id, @FormParam("libelle") String libelle) {
+        Categorie t = new Categorie();
+        t.setId(id);
+        t.setLibelle(libelle);
+        return new CategorieDaoImpl().update(t);
     }
     
     @DELETE
     @Path("delete/{id}")
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     public void delete(@PathParam("id")Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        new CategorieDaoImpl().delete(id);
     }
 
     @GET
@@ -52,8 +58,8 @@ public class CategorieRessource  {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-    public Categorie getById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Categorie getById(@PathParam("id") Long id) {
+        return new CategorieDaoImpl().getById(id);
     }
     
 }

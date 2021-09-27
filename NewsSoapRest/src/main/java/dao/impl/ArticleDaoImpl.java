@@ -30,12 +30,12 @@ public class ArticleDaoImpl implements ArticleDao{
     }
 
     @Override
-    public void update(Article t) {
+    public Article update(Article t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Long id) {
+    public boolean delete(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
