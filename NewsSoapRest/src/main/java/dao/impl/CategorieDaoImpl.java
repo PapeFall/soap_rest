@@ -27,7 +27,7 @@ public class CategorieDaoImpl implements CategorieDAO {
     private static final String SQL_SELECT_BY_ID = "select * from categorie where id = ?";
     private static final String SQL_DELETE_BY_ID = "DELETE from categorie where id = ?";
     private static final String SQL_INSERT = "insert into categorie(libelle) values(?)";
-    private static final String SQL_UPDATE = "update set categorie libelle=?";
+    private static final String SQL_UPDATE = "update set categorie libelle=? where id=?";
 
     @Override
     public Categorie create(Categorie t) {
@@ -66,6 +66,7 @@ public class CategorieDaoImpl implements CategorieDAO {
         try {
             preparedStatement = connection.prepareStatement(SQL_UPDATE);
             preparedStatement.setString(1, t.getLibelle());
+            preparedStatement.setLong(2, t.getId());
             b = preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {

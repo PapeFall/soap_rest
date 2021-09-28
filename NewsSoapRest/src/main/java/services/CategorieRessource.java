@@ -45,8 +45,8 @@ public class CategorieRessource  {
     @DELETE
     @Path("delete/{id}")
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-    public void delete(@PathParam("id")Long id) {
-        new CategorieDaoImpl().delete(id);
+    public boolean delete(@PathParam("id")Long id) {
+        return new CategorieDaoImpl().delete(id);
     }
 
     @GET

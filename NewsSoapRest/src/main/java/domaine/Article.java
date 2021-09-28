@@ -57,19 +57,19 @@ public class Article {
         this.contenu = contenu;
     }
 
-    public Date getDate_creation() {
+    public Date getDateCreation() {
         return dateCreation;
     }
 
-    public void setDate_creation(Date date_creation) {
+    public void setDateCreation(Date date_creation) {
         this.dateCreation = date_creation;
     }
 
-    public Date getDate_modification() {
+    public Date getDateModification() {
         return dateModification;
     }
 
-    public void setDate_modification(Date date_modification) {
+    public void setDateModification(Date date_modification) {
         this.dateModification = date_modification;
     }
 
