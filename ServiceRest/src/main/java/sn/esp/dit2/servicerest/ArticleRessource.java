@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package services;
+package sn.esp.dit2.servicerest;
 
 import dao.ArticleDao;
 import dao.impl.ArticleDaoImpl;

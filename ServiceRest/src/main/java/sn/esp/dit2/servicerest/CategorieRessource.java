@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package services;
+package sn.esp.dit2.servicerest;
 
 import dao.impl.CategorieDaoImpl;
 import domaine.Categorie;
@@ -17,6 +17,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -50,9 +51,13 @@ public class CategorieRessource  {
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Categorie> getAll() {
-        return new CategorieDaoImpl().getAll();
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    public Response getAll() {
+        return Response.ok( new CategorieDaoImpl().getAll())
+                .header("Access-Control-Allow-Origin","*")
+            .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+            .allow("OPTIONS")
+                .build();
     }
 
     @GET
