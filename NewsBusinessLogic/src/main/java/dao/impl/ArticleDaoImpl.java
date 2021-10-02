@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class ArticleDaoImpl implements ArticleDao{
     private static final String SQL_SELECT_ALL = "select * from article order by dateCreation desc";
-    private static final String SQL_SELECT_BY_CATEGORIE = "select * from article where id=? order by dateCreation desc";
+    private static final String SQL_SELECT_BY_CATEGORIE = "select * from article where categorie=? order by dateCreation desc";
     private static final String SQL_SELECT_GROUPBY_CATEGORIE = "select * from article group by categorie order by dateCreation desc";
 
     private static final String SQL_SELECT_BY_ID = "select * from article where id = ?";
