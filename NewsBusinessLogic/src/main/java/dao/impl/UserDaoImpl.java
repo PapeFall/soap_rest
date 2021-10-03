@@ -18,14 +18,13 @@ import java.util.List;
 
 /**
  *
- * @author pbfall
  */
 public class UserDaoImpl implements UserDao{
     private static final String SQL_SELECT_ALL = "select * from user";
     private static final String SQL_SELECT_BY_ID = "select * from user where id = ?";
     private static final String SQL_DELETE_BY_ID = "DELETE from user where id = ?";
     private static final String SQL_INSERT = "insert into user(nom,prenom,login,password,profil) values(?,?,?,?,?)";
-    private static final String SQL_UPDATE = "update set user nom=?, prenom=?,login=?,password=?,profil=? where id=?";
+    private static final String SQL_UPDATE = "update user set  nom=?, prenom=?,login=?,password=?,profil=? where id=?";
 
     @Override
     public User create(User t) {
