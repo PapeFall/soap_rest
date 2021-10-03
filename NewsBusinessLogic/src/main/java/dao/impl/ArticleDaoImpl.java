@@ -28,7 +28,7 @@ public class ArticleDaoImpl implements ArticleDao{
     private static final String SQL_SELECT_BY_ID = "select * from article where id = ?";
     private static final String SQL_DELETE_BY_ID = "delete from article where id = ?";
     private static final String SQL_INSERT = "insert into article(titre,contenu,dateCreation,dateModification) values(?,?,now(),now())";
-    private static final String SQL_UPDATE = "update set categorie titre=?, contenu=?, dateModification=now() where id=?";
+    private static final String SQL_UPDATE = "update article set titre=?, contenu=?,categorie=?, dateModification=now() where id=?";
     @Override
     public List<Article> getListByCategorie(Long categorie) {
         Connection connection = ConnexionManager.getConnection();
@@ -127,7 +127,8 @@ public class ArticleDaoImpl implements ArticleDao{
             preparedStatement = connection.prepareStatement(SQL_UPDATE);
             preparedStatement.setString(1, t.getTitre());
             preparedStatement.setString(2, t.getContenu());
-            preparedStatement.setLong(3, t.getId());
+            preparedStatement.setLong(3, t.getCategorie());
+            preparedStatement.setLong(4, t.getId());
             b = preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
@@ -229,8 +230,8 @@ public class ArticleDaoImpl implements ArticleDao{
         ar.setTitre(resultSet.getString("titre"));
         ar.setContenu(resultSet.getString("contenu"));
         ar.setCategorie(resultSet.getLong("categorie"));
-        ar.setDateCreation((Date)resultSet.getDate("dateCreation"));
-        ar.setDateModification((Date)resultSet.getDate("dateModification"));
+        ar.setDateCreation(new Date(resultSet.getTimestamp("dateCreation").getTime()));
+        ar.setDateModification(new Date(resultSet.getTimestamp("dateModification").getTime()));
         return ar;
     }
     

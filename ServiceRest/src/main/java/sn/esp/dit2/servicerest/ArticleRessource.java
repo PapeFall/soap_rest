@@ -9,6 +9,7 @@ import dao.ArticleDao;
 import dao.impl.ArticleDaoImpl;
 import domaine.Article;
 import java.util.List;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -50,20 +51,17 @@ public class ArticleRessource {
     
     @POST
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-    public Article create(@FormParam("titre")String titre,@FormParam("contenu") String contenu){
-        Article t = new Article();
-        t.setTitre(titre);
-        t.setContenu(contenu);
-        return new ArticleDaoImpl().create(t);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Article create(Article article){
+        return new ArticleDaoImpl().create(article);
     }
     
     @PUT
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-    public Article update(@FormParam("titre")String titre,@FormParam("contenu") String contenu){
-        Article t = new Article();
-        t.setTitre(titre);
-        t.setContenu(contenu);
-        return new ArticleDaoImpl().update(t);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Article update(Article article){
+        
+        return new ArticleDaoImpl().update(article);
     }
 
     @DELETE
