@@ -25,7 +25,7 @@ public class CategorieDaoImpl implements CategorieDAO {
     private static final String SQL_SELECT_BY_ID = "select * from categorie where id = ?";
     private static final String SQL_DELETE_BY_ID = "DELETE from categorie where id = ?";
     private static final String SQL_INSERT = "insert into categorie(libelle) values(?)";
-    private static final String SQL_UPDATE = "update set categorie libelle=? where id=?";
+    private static final String SQL_UPDATE = "update  categorie set libelle=? where id=?";
 
     @Override
     public Categorie create(Categorie t) {

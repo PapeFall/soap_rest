@@ -8,6 +8,7 @@ package sn.esp.dit2.servicerest;
 import dao.impl.CategorieDaoImpl;
 import domaine.Categorie;
 import java.util.List;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -28,19 +29,17 @@ public class CategorieRessource  {
     
     @POST
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-    public Categorie create(@FormParam("libelle") String libelle) {
-        Categorie t = new Categorie();
-        t.setLibelle(libelle);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Categorie create(Categorie t) {
         return new CategorieDaoImpl().create(t);
     }
     
     @PUT
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-    public Categorie update(@FormParam("id") Long id, @FormParam("libelle") String libelle) {
-        Categorie t = new Categorie();
-        t.setId(id);
-        t.setLibelle(libelle);
-        return new CategorieDaoImpl().update(t);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Categorie update(Categorie categorie) {
+        
+        return new CategorieDaoImpl().update(categorie);
     }
     
     @DELETE
