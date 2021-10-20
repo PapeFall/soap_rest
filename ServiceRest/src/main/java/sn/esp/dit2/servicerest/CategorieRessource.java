@@ -36,7 +36,7 @@ public class CategorieRessource {
         return Response.ok("editeur").build();
     }
 
-    @RolesAllowed("ADMIN")
+    @RolesAllowed("ADMINISTRATEUR")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Path("test2")
@@ -44,7 +44,7 @@ public class CategorieRessource {
         return Response.ok("admin").build();
     }
 
-    @RolesAllowed({"EDITEUR", "ADMIN"})
+    @RolesAllowed({"EDITEUR", "ADMINISTRATEUR"})
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
@@ -52,7 +52,7 @@ public class CategorieRessource {
         return new CategorieDaoImpl().create(t);
     }
 
-    @RolesAllowed({"EDITEUR", "ADMIN"})
+    @RolesAllowed({"EDITEUR", "ADMINISTRATEUR"})
     @PUT
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
@@ -61,7 +61,7 @@ public class CategorieRessource {
         return new CategorieDaoImpl().update(categorie);
     }
 
-    @RolesAllowed({"EDITEUR", "ADMIN"})
+    @RolesAllowed({"EDITEUR", "ADMINISTRATEUR"})
     @DELETE
     @Path("delete/{id}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

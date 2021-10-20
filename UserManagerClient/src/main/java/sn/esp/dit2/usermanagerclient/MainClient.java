@@ -46,6 +46,7 @@ public class MainClient {
                         break;
                     case 2:
                         System.out.println("Veuillez fournir les informations suivantes.");
+                        sc.nextLine();
                         User user = saveUser(sc);
                         System.out.println(userService.create(user, login, password));
                         break;

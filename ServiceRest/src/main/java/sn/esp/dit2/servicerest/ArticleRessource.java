@@ -48,7 +48,7 @@ public class ArticleRessource {
         return new ArticleDaoImpl().getListByCategorie(id);
     }
 
-    @RolesAllowed({"EDITEUR", "ADMIN"})
+    @RolesAllowed({"EDITEUR", "ADMINISTRATEUR"})
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
@@ -56,7 +56,7 @@ public class ArticleRessource {
         return new ArticleDaoImpl().create(article);
     }
 
-    @RolesAllowed({"EDITEUR", "ADMIN"})
+    @RolesAllowed({"EDITEUR", "ADMINISTRATEUR"})
     @PUT
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
@@ -65,7 +65,7 @@ public class ArticleRessource {
         return new ArticleDaoImpl().update(article);
     }
 
-    @RolesAllowed({"EDITEUR", "ADMIN"})
+    @RolesAllowed({"EDITEUR", "ADMINISTRATEUR"})
     @DELETE
     @Path("delete/{id}")
     public boolean delete(@PathParam("id") Long id) {
