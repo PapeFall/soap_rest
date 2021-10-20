@@ -38,10 +38,10 @@ public class MainClient {
                 switch (opt) {
                     case 1:
                         List<User> users = userService.getAll();
-                        System.out.println("\tPrénom \tNom \tLogin \tProfil");
+                        System.out.println("\tID\tPrénom \tNom \tLogin \tProfil");
                         System.out.println("--------------------------------------------------------------");
                         for (User user : users) {
-                            System.out.println("\t"+user.getPrenom()+"\t"+user.getNom()+"\t"+user.getLogin()+"\t"+user.getProfil());
+                            System.out.println("\t"+user.getId()+"\t"+user.getPrenom()+"\t"+user.getNom()+"\t"+user.getLogin()+"\t"+user.getProfil());
                         }
                         break;
                     case 2:
@@ -54,6 +54,7 @@ public class MainClient {
                         System.out.println("Veuillez fournir les informations suivantes.");
                         System.out.println("ID:");
                         Long id = sc.nextLong();
+                        sc.nextLine();
                         User user2 = saveUser(sc);
                         user2.setId(id);
                         System.out.println(userService.update(user2, login, password));
