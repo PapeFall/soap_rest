@@ -48,7 +48,6 @@ public class CategorieRessource {
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("")
     public Categorie create(Categorie t) {
         return new CategorieDaoImpl().create(t);
     }
