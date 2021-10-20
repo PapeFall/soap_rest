@@ -49,6 +49,16 @@
   <artifactId>jersey-media-jaxb</artifactId>
   <version>2.28</version>
 </dependency>
+
+
+<dependency>
+    <groupId>com.fasterxml.jackson.jaxrs</groupId>
+    <artifactId>jackson-jaxrs-xml-provider</artifactId>
+    <version>2.13.0</version>
+    <!-- you'll probably want to use the same version as
+         the jackson being used on your wildfly -->
+
+</dependency>
     </dependencies>
 
     <build>

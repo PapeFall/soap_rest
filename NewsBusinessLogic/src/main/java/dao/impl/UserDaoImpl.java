@@ -25,6 +25,7 @@ public class UserDaoImpl implements UserDao{
     private static final String SQL_DELETE_BY_ID = "DELETE from user where id = ?";
     private static final String SQL_INSERT = "insert into user(nom,prenom,login,password,profil) values(?,?,?,?,?)";
     private static final String SQL_UPDATE = "update user set  nom=?, prenom=?,login=?,password=?,profil=? where id=?";
+    private static final String SQL_FIND_BY_USERNAME= "select * from user where login = ?";
 
     @Override
     public User create(User t) {
@@ -149,6 +150,34 @@ public class UserDaoImpl implements UserDao{
         try {
             preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID);
             preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                getUserFromResultSet(user, resultSet);
+
+            }
+            resultSet.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        ConnexionManager.closeConnection(connection);
+        return user;
+    }
+    @Override
+    public User findByLogin(String login) {
+        Connection connection = ConnexionManager.getConnection();
+        PreparedStatement preparedStatement = null;
+        User user = new User();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_FIND_BY_USERNAME);
+            preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {

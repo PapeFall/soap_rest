@@ -8,6 +8,8 @@ package sn.esp.dit2.servicerest;
 import dao.impl.CategorieDaoImpl;
 import domaine.Categorie;
 import java.util.List;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -23,47 +25,66 @@ import javax.ws.rs.core.Response;
 /**
  *
  */
-@Path("categorie")
-public class CategorieRessource  {
+@Path("/categorie")
+public class CategorieRessource {
 
-    
+    @RolesAllowed("EDITEUR")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Path("test1")
+    public Response ed() {
+        return Response.ok("editeur").build();
+    }
+
+    @RolesAllowed("ADMIN")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Path("test2")
+    public Response ad() {
+        return Response.ok("admin").build();
+    }
+
+    @RolesAllowed({"EDITEUR", "ADMIN"})
     @POST
-    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
+    @Path("")
     public Categorie create(Categorie t) {
         return new CategorieDaoImpl().create(t);
     }
-    
+
+    @RolesAllowed({"EDITEUR", "ADMIN"})
     @PUT
-    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
     public Categorie update(Categorie categorie) {
-        
+
         return new CategorieDaoImpl().update(categorie);
     }
-    
+
+    @RolesAllowed({"EDITEUR", "ADMIN"})
     @DELETE
     @Path("delete/{id}")
-    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-    public boolean delete(@PathParam("id")Long id) {
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public boolean delete(@PathParam("id") Long id) {
         return new CategorieDaoImpl().delete(id);
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    @PermitAll
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getAll() {
-        return Response.ok( new CategorieDaoImpl().getAll())
-                .header("Access-Control-Allow-Origin","*")
-            .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-            .allow("OPTIONS")
+        return Response.ok(new CategorieDaoImpl().getAll())
                 .build();
     }
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @PermitAll
     public Categorie getById(@PathParam("id") Long id) {
         return new CategorieDaoImpl().getById(id);
     }
-    
+
 }

@@ -78,6 +78,16 @@ public class User {
     public void setProfil(String profil) {
         this.profil = profil;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.id == ((User)obj).getId(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String toString() {
+        return "-\t"+this.prenom +" "+this.nom+" "+this.login+" "+this.profil;
+    }
     
     
     

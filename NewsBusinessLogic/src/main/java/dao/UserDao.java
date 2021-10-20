@@ -12,5 +12,5 @@ import domaine.User;
  * @author pbfall
  */
 public interface UserDao extends DaoCrud<User>{
-    
+    public User findByLogin(String login);
 }

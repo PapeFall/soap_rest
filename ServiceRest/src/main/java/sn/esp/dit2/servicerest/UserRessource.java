@@ -8,6 +8,7 @@ package sn.esp.dit2.servicerest;
 import dao.impl.UserDaoImpl;
 import domaine.User;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -25,6 +26,7 @@ import javax.ws.rs.core.MediaType;
 public class UserRessource {
     @GET
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    @RolesAllowed({"ADMINISTRATEUR"})
     public List<User> getusers(){
         return new UserDaoImpl().getAll();
     }
@@ -34,6 +36,7 @@ public class UserRessource {
     @POST
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADMINISTRATEUR"})
     public User create(User user){
         return new UserDaoImpl().create(user);
     }
@@ -41,6 +44,7 @@ public class UserRessource {
     @PUT
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADMINISTRATEUR"})
     public User update(User user){
         
         return new UserDaoImpl().update(user);
@@ -48,12 +52,14 @@ public class UserRessource {
 
     @DELETE
     @Path("delete/{id}")
+    @RolesAllowed({"ADMINISTRATEUR"})
     public boolean delete(@PathParam("id") Long id){
         return new UserDaoImpl().delete(id);
     }
 
     @GET
     @Path("{id}")
+    @RolesAllowed({"ADMINISTRATEUR"})
     public User getById(@PathParam("id") Long id) {
         return new UserDaoImpl().getById(id);
     }
